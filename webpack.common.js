@@ -1,10 +1,15 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = {
-  entry: "./src/ts/index.ts",
+const dirs = {
+  dev: "src",
+  prod: "public"
+}
+
+const config = {
+  entry: path.resolve(__dirname, dirs.dev, "ts", "index.ts"),
   output: {
-    path: path.resolve(__dirname, "public")
+    path: path.resolve(__dirname, dirs.prod)
   },
   module: {
     rules: [
@@ -20,8 +25,10 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: path.resolve(__dirname, dirs.dev, "index.html"),
       filename: "index.html"
     })
   ]
 };
+
+module.exports = { config, dirs }
